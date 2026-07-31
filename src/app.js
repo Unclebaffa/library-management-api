@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import ApiError from './utils/ApiError.js';
 import errorHandler from './middlewares/errorHandler.js';
+import bookRoutes from './routes/bookRoutes.js';
+import memberRoutes from './routes/memberRoutes.js';
 
 const app = express();
 
@@ -44,7 +46,11 @@ app.get('/api/v1/health', (req, res) => {
   });
 });
 
-// 6. Handle Undefined / 404 Routes
+// 6. Application Resource Routes
+app.use('/api/v1/books', bookRoutes);
+app.use('/api/v1/members', memberRoutes);
+
+// 7. Handle Undefined / 404 Routes
 app.use((req, res, next) => {
   next(new ApiError(404, `Route ${req.originalUrl} not found`));
 });
