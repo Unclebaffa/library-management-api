@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger.js';
 import ApiError from './utils/ApiError.js';
 import errorHandler from './middlewares/errorHandler.js';
 import bookRoutes from './routes/bookRoutes.js';
@@ -11,7 +13,11 @@ import borrowingRoutes from './routes/borrowingRoutes.js';
 const app = express();
 
 // 1. Security HTTP Headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // 2. Cross-Origin Resource Sharing
 app.use(
@@ -47,17 +53,21 @@ app.get('/api/v1/health', (req, res) => {
   });
 });
 
-// 6. Application Resource Routes
+// 6. Interactive API Documentation (Swagger UI)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get('/docs', (req, res) => res.redirect('/api-docs'));
+
+// 7. Application Resource Routes
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/members', memberRoutes);
 app.use('/api/v1/borrowings', borrowingRoutes);
 
-// 7. 404 Fallback Handler for Undefined Endpoints
+// 8. 404 Fallback Handler for Undefined Endpoints
 app.use('*', (req, res, next) => {
   next(new ApiError(404, `Cannot find route '${req.originalUrl}' on this server`));
 });
 
-// 8. Centralized Global Error Handler Middleware
+// 9. Centralized Global Error Handler Middleware
 app.use(errorHandler);
 
 export default app;

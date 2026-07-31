@@ -8,6 +8,7 @@ A scalable, production-ready RESTful API built with **Node.js**, **Express.js**,
 - [Tech Stack & System Requirements](#tech-stack--system-requirements)
 - [Architecture Overview](#architecture-overview)
 - [Setup & Installation Instructions](#setup--installation-instructions)
+- [Interactive API Documentation (Swagger UI)](#interactive-api-documentation-swagger-ui)
 - [API Endpoint Matrix](#api-endpoint-matrix)
   - [Books API](#books-api)
   - [Members API](#members-api)
@@ -29,6 +30,7 @@ A scalable, production-ready RESTful API built with **Node.js**, **Express.js**,
 - **helmet** (`^7.1.0`): Security HTTP header protection
 - **cors** (`^2.8.5`): Cross-Origin Resource Sharing configuration
 - **morgan** (`^1.10.0`): HTTP request logging
+- **swagger-ui-express** (`^5.0.1`): OpenAPI interactive documentation UI
 - **dotenv** (`^16.4.5`): Environment variable management
 - **express-validator** (`^7.1.0`): Declarative request validation & sanitization
 
@@ -47,7 +49,8 @@ library-management-api/
 ├── README.md
 └── src/
     ├── config/
-    │   └── db.js                 # MongoDB connection configuration
+    │   ├── db.js                 # MongoDB connection configuration
+    │   └── swagger.js            # OpenAPI 3.0 specification & schemas
     ├── controllers/
     │   ├── bookController.js      # Book entity business logic
     │   ├── memberController.js    # Member entity business logic
@@ -124,6 +127,21 @@ Navigate to `http://localhost:5000/api/v1/health` in your browser or HTTP client
   "timestamp": "2026-07-31T19:00:00.000Z"
 }
 ```
+
+---
+
+## Interactive API Documentation (Swagger UI)
+
+This API includes full **OpenAPI 3.0** interactive documentation powered by Swagger UI.
+
+- **Swagger UI URL**: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+- **Short URL Alias**: [http://localhost:5000/docs](http://localhost:5000/docs)
+
+Using Swagger UI, you can:
+- Explore all endpoints and HTTP verbs (GET, POST, PUT, DELETE).
+- View request body schemas, parameters, data types, and default values.
+- Execute live requests directly using the **"Try it out"** button.
+- Inspect structured response bodies and HTTP status codes.
 
 ---
 
