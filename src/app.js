@@ -6,6 +6,7 @@ import ApiError from './utils/ApiError.js';
 import errorHandler from './middlewares/errorHandler.js';
 import bookRoutes from './routes/bookRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
+import borrowingRoutes from './routes/borrowingRoutes.js';
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.get('/api/v1/health', (req, res) => {
 // 6. Application Resource Routes
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/members', memberRoutes);
+app.use('/api/v1/borrowings', borrowingRoutes);
 
 // 7. Handle Undefined / 404 Routes
 app.use((req, res, next) => {
